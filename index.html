@@ -1,0 +1,4025 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="description"
+    content="Curso completo de C++ de básico a avanzado para quinto de secundaria."
+>
+
+<title>Curso Profesional de C++ | 5.º de Secundaria</title>
+
+<style>
+/* =========================================================
+   VARIABLES
+========================================================= */
+:root {
+    --bg: #f1f5f9;
+    --surface: #ffffff;
+    --surface-2: #f8fafc;
+    --text: #172033;
+    --muted: #64748b;
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --secondary: #7c3aed;
+    --success: #16a34a;
+    --warning: #d97706;
+    --danger: #dc2626;
+    --border: #dbe3ee;
+
+    --code-bg: #0b1220;
+    --code-text: #e2e8f0;
+
+    --shadow:
+        0 15px 40px rgba(15, 23, 42, 0.08);
+
+    --radius: 18px;
+}
+
+body.dark {
+    --bg: #070d18;
+    --surface: #101827;
+    --surface-2: #182235;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --border: #263449;
+
+    --code-bg: #030712;
+    --code-text: #e2e8f0;
+
+    --shadow:
+        0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family:
+        Inter,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background: var(--bg);
+    color: var(--text);
+
+    line-height: 1.7;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+code {
+    font-family:
+        "Cascadia Code",
+        "Fira Code",
+        Consolas,
+        monospace;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 72px;
+
+    background: rgba(255, 255, 255, 0.9);
+
+    border-bottom: 1px solid var(--border);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 22px;
+
+    z-index: 1000;
+
+    backdrop-filter: blur(15px);
+}
+
+body.dark .header {
+    background: rgba(16, 24, 39, 0.9);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.logo {
+    width: 44px;
+    height: 44px;
+
+    border-radius: 13px;
+
+    display: grid;
+    place-items: center;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    box-shadow:
+        0 8px 25px rgba(37, 99, 235, 0.25);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon-btn {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 12px;
+
+    border: 1px solid var(--border);
+
+    background: var(--surface);
+    color: var(--text);
+
+    transition: 0.2s;
+}
+
+.icon-btn:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    position: fixed;
+
+    top: 72px;
+    left: 0;
+    bottom: 0;
+
+    width: 280px;
+
+    padding: 18px 14px;
+
+    background: var(--surface);
+
+    border-right: 1px solid var(--border);
+
+    overflow-y: auto;
+
+    z-index: 900;
+
+    transition:
+        transform 0.3s ease;
+}
+
+.sidebar-title {
+    padding: 8px 12px 12px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+.nav-item {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--text);
+
+    padding: 11px 13px;
+
+    margin-bottom: 4px;
+
+    border-radius: 11px;
+
+    text-align: left;
+
+    transition: 0.2s;
+}
+
+.nav-item:hover {
+    background: var(--surface-2);
+    color: var(--primary);
+}
+
+.nav-item.active {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress-box {
+    margin: 20px 8px;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background: var(--surface-2);
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 8px;
+
+    font-size: 13px;
+}
+
+.progress {
+    height: 8px;
+
+    background: var(--border);
+
+    border-radius: 50px;
+
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+
+    width: 0%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    transition: width 0.4s ease;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+    margin-left: 280px;
+
+    padding:
+        105px
+        35px
+        50px;
+
+    max-width: 1550px;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    padding: 50px;
+
+    border-radius: 26px;
+
+    border: 1px solid var(--border);
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(124, 58, 237, 0.2),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom left,
+            rgba(37, 99, 235, 0.18),
+            transparent 35%
+        ),
+        var(--surface);
+
+    box-shadow: var(--shadow);
+
+    margin-bottom: 28px;
+}
+
+.hero-badge {
+    display: inline-flex;
+
+    padding: 7px 13px;
+
+    border-radius: 30px;
+
+    background: rgba(37, 99, 235, 0.1);
+
+    color: var(--primary);
+
+    font-size: 12px;
+    font-weight: 800;
+
+    margin-bottom: 17px;
+}
+
+.hero h1 {
+    max-width: 900px;
+
+    font-size:
+        clamp(
+            38px,
+            6vw,
+            66px
+        );
+
+    line-height: 1.03;
+
+    letter-spacing: -2px;
+
+    margin-bottom: 20px;
+}
+
+.gradient {
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+.hero p {
+    max-width: 850px;
+
+    color: var(--muted);
+
+    font-size: 18px;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 28px;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn {
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 12px 18px;
+
+    font-weight: 700;
+
+    transition: 0.2s;
+}
+
+.btn-primary {
+    color: white;
+
+    background: var(--primary);
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    color: var(--text);
+
+    background: var(--surface-2);
+
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary);
+
+    color: var(--primary);
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 16px;
+
+    margin-bottom: 28px;
+}
+
+.card {
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 22px;
+
+    box-shadow: var(--shadow);
+}
+
+.stat {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 14px;
+
+    background: var(--surface-2);
+
+    font-size: 22px;
+}
+
+.stat strong {
+    display: block;
+
+    font-size: 25px;
+}
+
+.stat span {
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.section {
+    display: none;
+
+    animation:
+        sectionIn
+        0.3s
+        ease;
+}
+
+.section.active {
+    display: block;
+}
+
+@keyframes sectionIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-header {
+    margin-bottom: 25px;
+}
+
+.section-number {
+    color: var(--primary);
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+.section h2 {
+    font-size: 34px;
+
+    line-height: 1.2;
+
+    margin:
+        5px
+        0
+        12px;
+}
+
+.section h3 {
+    font-size: 23px;
+
+    margin:
+        28px
+        0
+        12px;
+}
+
+.section p {
+    color: var(--muted);
+
+    margin-bottom: 14px;
+}
+
+/* =========================================================
+   INFO
+========================================================= */
+
+.info {
+    padding: 18px 20px;
+
+    border-left:
+        4px solid
+        var(--primary);
+
+    background:
+        rgba(37, 99, 235, 0.07);
+
+    border-radius: 10px;
+
+    margin: 18px 0;
+}
+
+.info.warning {
+    border-left-color: var(--warning);
+
+    background:
+        rgba(245, 158, 11, 0.08);
+}
+
+.info.success {
+    border-left-color: var(--success);
+
+    background:
+        rgba(22, 163, 74, 0.08);
+}
+
+/* =========================================================
+   TOPIC CARDS
+========================================================= */
+
+.topic-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 18px;
+}
+
+.topic-card {
+    background: var(--surface);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    transition: 0.25s;
+}
+
+.topic-card:hover {
+    transform: translateY(-4px);
+
+    border-color: var(--primary);
+
+    box-shadow: var(--shadow);
+}
+
+.topic-card .emoji {
+    font-size: 30px;
+
+    margin-bottom: 8px;
+}
+
+.topic-card h3 {
+    margin: 0 0 7px;
+
+    font-size: 19px;
+}
+
+.topic-card p {
+    margin: 0;
+}
+
+/* =========================================================
+   CODE
+========================================================= */
+
+.code-wrapper {
+    margin:
+        18px
+        0
+        24px;
+
+    overflow: hidden;
+
+    border-radius: 15px;
+
+    background: var(--code-bg);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+
+    box-shadow:
+        0 12px 30px
+        rgba(0,0,0,0.12);
+}
+
+.code-header {
+    height: 44px;
+
+    padding:
+        0
+        13px
+        0
+        16px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    color: #94a3b8;
+
+    background:
+        rgba(255,255,255,0.04);
+
+    font-size: 12px;
+}
+
+.copy-btn {
+    border:
+        1px solid
+        rgba(255,255,255,0.14);
+
+    background: transparent;
+
+    color: #cbd5e1;
+
+    padding:
+        5px
+        10px;
+
+    border-radius: 7px;
+
+    transition: 0.2s;
+}
+
+.copy-btn:hover {
+    background:
+        rgba(255,255,255,0.08);
+}
+
+pre {
+    margin: 0;
+
+    padding: 20px;
+
+    overflow-x: auto;
+
+    color: var(--code-text);
+
+    font-family:
+        "Cascadia Code",
+        "Fira Code",
+        Consolas,
+        monospace;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+pre code {
+    color: inherit;
+}
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-wrap {
+    overflow-x: auto;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 14px;
+
+    margin: 18px 0;
+}
+
+table {
+    width: 100%;
+
+    min-width: 600px;
+
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding:
+        13px
+        15px;
+
+    text-align: left;
+
+    border-bottom:
+        1px solid
+        var(--border);
+}
+
+th {
+    background: var(--surface-2);
+
+    font-weight: 800;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* =========================================================
+   QUIZ
+========================================================= */
+
+.question {
+    margin-bottom: 20px;
+
+    padding: 20px;
+
+    background: var(--surface);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 15px;
+}
+
+.question h4 {
+    margin-bottom: 12px;
+}
+
+.option {
+    display: block;
+
+    padding: 10px;
+
+    margin: 7px 0;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.option:hover {
+    background: var(--surface-2);
+
+    border-color: var(--primary);
+}
+
+.option input {
+    margin-right: 8px;
+}
+
+.result {
+    display: none;
+
+    margin-top: 18px;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    font-weight: 700;
+}
+
+/* =========================================================
+   TERMINAL
+========================================================= */
+
+.terminal {
+    overflow: hidden;
+
+    margin-top: 20px;
+
+    border-radius: 16px;
+
+    background: #020617;
+
+    border:
+        1px solid
+        #1e293b;
+
+    color: #d1fae5;
+}
+
+.terminal-header {
+    padding: 10px 15px;
+
+    background: #0f172a;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+.terminal-body {
+    min-height: 180px;
+
+    padding: 20px;
+
+    white-space: pre-wrap;
+
+    font-family:
+        Consolas,
+        monospace;
+}
+
+.prompt {
+    color: #22c55e;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    margin-top: 40px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    border-top:
+        1px solid
+        var(--border);
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+.menu-toggle {
+    display: none;
+}
+
+@media (max-width: 1100px) {
+
+    .grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 800px) {
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main {
+        margin-left: 0;
+
+        padding:
+            95px
+            15px
+            40px;
+    }
+
+    .hero {
+        padding: 30px 22px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .topic-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header {
+        padding: 0 12px;
+    }
+
+    .brand span {
+        display: none;
+    }
+
+    .hero h1 {
+        letter-spacing: -1px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .section h2 {
+        font-size: 28px;
+    }
+
+    .header-actions .icon-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="brand">
+
+        <button
+            class="icon-btn menu-toggle"
+            id="menuButton"
+            aria-label="Abrir menú">
+            ☰
+        </button>
+
+        <div class="logo">
+            &lt;/&gt;
+        </div>
+
+        <span>Academia C++</span>
+
+    </div>
+
+    <div class="header-actions">
+
+        <button
+            class="icon-btn"
+            id="themeButton"
+            title="Cambiar tema"
+            aria-label="Cambiar tema">
+            🌙
+        </button>
+
+        <button
+            class="icon-btn"
+            id="searchButton"
+            title="Buscar"
+            aria-label="Buscar">
+            🔎
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-title">
+        Contenido del curso
+    </div>
+
+    <button class="nav-item active" data-section="inicio">
+        🏠 Inicio
+    </button>
+
+    <button class="nav-item" data-section="cpp">
+        🚀 ¿Qué es C++?
+    </button>
+
+    <button class="nav-item" data-section="entorno">
+        🛠️ Instalación
+    </button>
+
+    <button class="nav-item" data-section="basico">
+        📘 Fundamentos
+    </button>
+
+    <button class="nav-item" data-section="condicionales">
+        🔀 Condicionales
+    </button>
+
+    <button class="nav-item" data-section="ciclos">
+        🔁 Ciclos
+    </button>
+
+    <button class="nav-item" data-section="funciones">
+        ⚙️ Funciones
+    </button>
+
+    <button class="nav-item" data-section="estructuras">
+        🧩 Estructuras
+    </button>
+
+    <button class="nav-item" data-section="punteros">
+        🧠 Punteros
+    </button>
+
+    <button class="nav-item" data-section="poo">
+        🏗️ POO
+    </button>
+
+    <button class="nav-item" data-section="stl">
+        📦 STL
+    </button>
+
+    <button class="nav-item" data-section="archivos">
+        💾 Archivos
+    </button>
+
+    <button class="nav-item" data-section="errores">
+        🐞 Errores
+    </button>
+
+    <button class="nav-item" data-section="quiz">
+        📝 Evaluación
+    </button>
+
+
+    <div class="progress-box">
+
+        <div class="progress-info">
+            <span>Progreso</span>
+
+            <strong id="progressText">
+                0%
+            </strong>
+        </div>
+
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                id="progressBar">
+            </div>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     CONTENIDO PRINCIPAL
+===================================================== -->
+
+<main class="main">
+
+<!-- =====================================================
+     INICIO
+===================================================== -->
+
+<section
+    id="inicio"
+    class="section active">
+
+    <div class="hero">
+
+        <div class="hero-badge">
+            5.º DE SECUNDARIA · SISTEMAS INFORMÁTICOS
+        </div>
+
+        <h1>
+            Curso completo de
+            <span class="gradient">C++</span>
+        </h1>
+
+        <p>
+            Aprende programación desde los fundamentos hasta conceptos
+            avanzados como punteros, estructuras de datos, STL,
+            programación orientada a objetos y manejo de archivos.
+        </p>
+
+        <div class="hero-actions">
+
+            <button
+                class="btn btn-primary"
+                id="startButton">
+                🚀 Comenzar curso
+            </button>
+
+            <button
+                class="btn btn-secondary"
+                id="quizButton">
+                📝 Evaluación
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card stat">
+
+            <div class="stat-icon">
+                📚
+            </div>
+
+            <div>
+                <strong></strong>
+                <span>Unidades</span>
+            </div>
+
+        </div>
+
+
+        <div class="card stat">
+
+            <div class="stat-icon">
+                💻
+            </div>
+
+            <div>
+                <strong></strong>
+                <span>Ejemplos</span>
+            </div>
+
+        </div>
+
+
+        <div class="card stat">
+
+            <div class="stat-icon">
+                🧠
+            </div>
+
+            <div>
+                <strong></strong>
+                <span>Conceptos</span>
+            </div>
+
+        </div>
+
+
+        <div class="card stat">
+
+            <div class="stat-icon">
+                🏆
+            </div>
+
+            <div>
+                <strong></strong>
+                <span>Práctico</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            Ruta de aprendizaje
+        </h2>
+
+        <div class="topic-grid">
+
+            <div class="topic-card">
+
+                <div class="emoji">
+                    🌱
+                </div>
+
+                <h3>
+                    Nivel básico
+                </h3>
+
+                <p>
+                    Variables, constantes, tipos de datos,
+                    operadores, entrada y salida.
+                </p>
+
+            </div>
+
+
+            <div class="topic-card">
+
+                <div class="emoji">
+                    ⚡
+                </div>
+
+                <h3>
+                    Nivel intermedio
+                </h3>
+
+                <p>
+                    Condicionales, ciclos, funciones,
+                    arreglos y estructuras.
+                </p>
+
+            </div>
+
+
+            <div class="topic-card">
+
+                <div class="emoji">
+                    🧠
+                </div>
+
+                <h3>
+                    Nivel avanzado
+                </h3>
+
+                <p>
+                    Punteros, referencias, STL,
+                    archivos y algoritmos.
+                </p>
+
+            </div>
+
+
+            <div class="topic-card">
+
+                <div class="emoji">
+                    🏗️
+                </div>
+
+                <h3>
+                    POO
+                </h3>
+
+                <p>
+                    Clases, objetos, constructores,
+                    encapsulamiento, herencia y polimorfismo.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     C++ 
+===================================================== -->
+
+<section
+    id="cpp"
+    class="section">
+
+    <div class="section-header">
+
+        <div class="section-number">
+        </div>
+
+        <h2>
+            ¿Qué es C++?
+        </h2>
+
+        <p>
+            C++ es un lenguaje de programación de propósito general
+            utilizado para crear software eficiente y de alto rendimiento.
+        </p>
+
+    </div>
+
+
+    <div class="info">
+
+        <strong>Concepto fundamental:</strong>
+
+        C++ permite utilizar programación estructurada,
+        programación orientada a objetos y técnicas modernas
+        de programación.
+
+    </div>
+
+
+    <div class="topic-grid">
+
+        <div class="topic-card">
+            <div class="emoji">🖥️</div>
+            <h3>Aplicaciones de escritorio</h3>
+            <p>Programas ejecutados directamente en una computadora.</p>
+        </div>
+
+        <div class="topic-card">
+            <div class="emoji">🎮</div>
+            <h3>Videojuegos</h3>
+            <p>Lenguaje utilizado en diferentes motores de videojuegos.</p>
+        </div>
+
+        <div class="topic-card">
+            <div class="emoji">🔧</div>
+            <h3>Sistemas informáticos</h3>
+            <p>Software que requiere eficiencia y control.</p>
+        </div>
+
+        <div class="topic-card">
+            <div class="emoji">🔬</div>
+            <h3>Software científico</h3>
+            <p>Procesamiento de grandes cantidades de datos.</p>
+        </div>
+
+        <div class="topic-card">
+            <div class="emoji">🤖</div>
+            <h3>Sistemas embebidos</h3>
+            <p>Programación de dispositivos electrónicos.</p>
+        </div>
+
+        <div class="topic-card">
+            <div class="emoji">⚡</div>
+            <h3>Alto rendimiento</h3>
+            <p>Aplicaciones donde la velocidad es fundamental.</p>
+        </div>
+
+        <div class="topic-card">
+            <div class="emoji">🎨</div>
+            <h3>Motores gráficos</h3>
+            <p>Procesamiento gráfico y simulación.</p>
+        </div>
+
+        <div class="topic-card">
+            <div class="emoji">🛠️</div>
+            <h3>Herramientas de programación</h3>
+            <p>Compiladores, editores y utilidades de desarrollo.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     INSTALACIÓN
+===================================================== -->
+
+<section
+    id="entorno"
+    class="section">
+
+    <div class="section-header">
+
+        <div class="section-number">
+        </div>
+
+        <h2>
+            Instalación del entorno
+        </h2>
+
+        <p>
+            Para desarrollar en C++ necesitas un editor,
+            un compilador y herramientas de programación.
+        </p>
+
+    </div>
+
+
+    <div class="topic-grid">
+
+        <div class="topic-card">
+
+            <div class="emoji">
+                📝
+            </div>
+
+            <h3>
+                Visual Studio Code
+            </h3>
+
+            <p>
+                Editor utilizado para escribir y organizar el código.
+            </p>
+
+        </div>
+
+
+        <div class="topic-card">
+
+            <div class="emoji">
+                ⚙️
+            </div>
+
+            <h3>
+                GCC / MinGW
+            </h3>
+
+            <p>
+                Compilador encargado de transformar el código fuente.
+            </p>
+
+        </div>
+
+
+        <div class="topic-card">
+
+            <div class="emoji">
+                🧩
+            </div>
+
+            <h3>
+                Extensión C/C++
+            </h3>
+
+            <p>
+                Agrega herramientas para desarrollar C++.
+            </p>
+
+        </div>
+
+
+        <div class="topic-card">
+
+            <div class="emoji">
+                ⌨️
+            </div>
+
+            <h3>
+                Terminal
+            </h3>
+
+            <p>
+                Permite compilar y ejecutar programas.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <h3>
+        Estructura del proyecto
+    </h3>
+
+    <div class="code-wrapper">
+
+        <div class="code-header">
+
+            <span>
+                MiProyecto
+            </span>
+
+            <button
+                class="copy-btn">
+                Copiar
+            </button>
+
+        </div>
+
+<pre><code>MiProyecto/
+│
+├── main.cpp
+├── datos.txt
+└── README.md</code></pre>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FUNDAMENTOS
+===================================================== -->
+
+<section
+    id="basico"
+    class="section">
+
+    <div class="section-header">
+
+        <div class="section-number">
+        </div>
+
+        <h2>
+            Primer programa en C++
+        </h2>
+
+        <p>
+            La estructura mínima de un programa C++ contiene
+            una función principal.
+        </p>
+
+    </div>
+
+
+    <div class="code-wrapper">
+
+        <div class="code-header">
+
+            <span>
+                main.cpp
+            </span>
+
+            <button class="copy-btn">
+                Copiar
+            </button>
+
+        </div>
+
+<pre><code>#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {
+
+    cout &lt;&lt; "Hola, mundo";
+
+    return 0;
+}</code></pre>
+
+    </div>
+
+
+    <h3>
+        Componentes
+    </h3>
+
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Elemento</th>
+                    <th>Función</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>
+                        <code>#include &lt;iostream&gt;</code>
+                    </td>
+
+                    <td>
+                        Permite trabajar con entrada y salida.
+                    </td>
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <code>using namespace std;</code>
+                    </td>
+
+                    <td>
+                        Facilita el uso de la biblioteca estándar.
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <code>int main()</code>
+                    </td>
+
+                    <td>
+                        Función principal.
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <code>cout</code>
+                    </td>
+
+                    <td>
+                        Muestra información.
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <code>return 0;</code>
+                    </td>
+
+                    <td>
+                        Finaliza correctamente.
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <h3>
+        Entrada y salida
+    </h3>
+
+
+    <div class="code-wrapper">
+
+        <div class="code-header">
+
+            <span>
+                entrada.cpp
+            </span>
+
+            <button class="copy-btn">
+                Copiar
+            </button>
+
+        </div>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main() {
+
+    string nombre;
+
+    cout &lt;&lt; "Ingrese su nombre: ";
+
+    cin &gt;&gt; nombre;
+
+    cout &lt;&lt; "Hola " &lt;&lt; nombre;
+
+    return 0;
+}</code></pre>
+
+    </div>
+
+
+    <h3>
+        Variables
+    </h3>
+
+
+    <div class="code-wrapper">
+
+        <div class="code-header">
+
+            <span>
+                variables.cpp
+            </span>
+
+            <button class="copy-btn">
+                Copiar
+            </button>
+
+        </div>
+
+<pre><code>int edad = 16;
+
+float promedio = 85.5;
+
+double precision = 15.5678;
+
+char inicial = 'R';
+
+bool aprobado = true;
+
+string nombre = "Roger";</code></pre>
+
+    </div>
+
+
+    <h3>
+        Tipos de datos
+    </h3>
+
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Tipo</th>
+                    <th>Uso</th>
+                    <th>Ejemplo</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>int</td>
+                    <td>Números enteros</td>
+                    <td>20</td>
+                </tr>
+
+                <tr>
+                    <td>float</td>
+                    <td>Números decimales</td>
+                    <td>15.5</td>
+                </tr>
+
+                <tr>
+                    <td>double</td>
+                    <td>Decimales de mayor precisión</td>
+                    <td>15.5678</td>
+                </tr>
+
+                <tr>
+                    <td>char</td>
+                    <td>Un carácter</td>
+                    <td>'A'</td>
+                </tr>
+
+                <tr>
+                    <td>bool</td>
+                    <td>Verdadero / falso</td>
+                    <td>true</td>
+                </tr>
+
+                <tr>
+                    <td>string</td>
+                    <td>Texto</td>
+                    <td>"Roger"</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <h3>
+        Constantes
+    </h3>
+
+
+    <div class="code-wrapper">
+
+<pre><code>const float PI = 3.14159;
+
+const float PRECIO = 25.50;
+
+cout &lt;&lt; PRECIO;</code></pre>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONDICIONALES
+===================================================== -->
+
+<section
+    id="condicionales"
+    class="section">
+
+    <div class="section-header">
+
+        <div class="section-number">
+        </div>
+
+        <h2>
+            Operadores y condicionales
+        </h2>
+
+        <p>
+            Las estructuras condicionales permiten tomar decisiones.
+        </p>
+
+    </div>
+
+
+    <h3>
+        Operadores aritméticos
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>+   suma
+-   resta
+*   multiplicación
+/   división
+%   módulo</code></pre>
+
+    </div>
+
+
+    <h3>
+        Operadores relacionales
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>==   igual
+!=   diferente
+&gt;    mayor
+&lt;    menor
+&gt;=   mayor o igual
+&lt;=   menor o igual</code></pre>
+
+    </div>
+
+
+    <h3>
+        Operadores lógicos
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>&amp;&amp;   AND
+||   OR
+!    NOT</code></pre>
+
+    </div>
+
+
+    <h3>
+        if
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>if (edad &gt;= 18) {
+
+    cout &lt;&lt; "Es mayor de edad";
+}</code></pre>
+
+    </div>
+
+
+    <h3>
+        if - else
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>if (nota &gt;= 51) {
+
+    cout &lt;&lt; "Aprobado";
+
+} else {
+
+    cout &lt;&lt; "Reprobado";
+}</code></pre>
+
+    </div>
+
+
+    <h3>
+        Condicionales anidadas
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>if (nota &gt;= 90) {
+
+    cout &lt;&lt; "Excelente";
+
+} else if (nota &gt;= 70) {
+
+    cout &lt;&lt; "Bueno";
+
+} else if (nota &gt;= 51) {
+
+    cout &lt;&lt; "Regular";
+
+} else {
+
+    cout &lt;&lt; "Reprobado";
+}</code></pre>
+
+    </div>
+
+
+    <h3>
+        switch
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>int opcion;
+
+cout &lt;&lt; "1. Sumar\n";
+cout &lt;&lt; "2. Restar\n";
+cout &lt;&lt; "3. Multiplicar\n";
+
+cin &gt;&gt; opcion;
+
+switch (opcion) {
+
+    case 1:
+        cout &lt;&lt; "Seleccionaste suma";
+        break;
+
+    case 2:
+        cout &lt;&lt; "Seleccionaste resta";
+        break;
+
+    case 3:
+        cout &lt;&lt; "Seleccionaste multiplicacion";
+        break;
+
+    default:
+        cout &lt;&lt; "Opcion incorrecta";
+}</code></pre>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CICLOS
+===================================================== -->
+
+<section
+    id="ciclos"
+    class="section">
+
+    <div class="section-header">
+
+        <div class="section-number">
+        </div>
+
+        <h2>
+            Ciclos repetitivos
+        </h2>
+
+        <p>
+            Permiten ejecutar un bloque de instrucciones repetidamente.
+        </p>
+
+    </div>
+
+
+    <h3>
+        for
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>for (int i = 1; i &lt;= 10; i++) {
+
+    cout &lt;&lt; i &lt;&lt; endl;
+}</code></pre>
+
+    </div>
+
+
+    <h3>
+        while
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>int numero = 1;
+
+while (numero &lt;= 10) {
+
+    cout &lt;&lt; numero &lt;&lt; endl;
+
+    numero++;
+}</code></pre>
+
+    </div>
+
+
+    <h3>
+        do while
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>int opcion;
+
+do {
+
+    cout &lt;&lt; "1. Saludar\n";
+    cout &lt;&lt; "2. Salir\n";
+
+    cin &gt;&gt; opcion;
+
+} while (opcion != 2);</code></pre>
+
+    </div>
+
+
+    <h3>
+        break
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>for (int i = 1; i &lt;= 10; i++) {
+
+    if (i == 5) {
+        break;
+    }
+
+    cout &lt;&lt; i &lt;&lt; endl;
+}</code></pre>
+
+    </div>
+
+
+    <h3>
+        continue
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>for (int i = 1; i &lt;= 10; i++) {
+
+    if (i == 5) {
+        continue;
+    }
+
+    cout &lt;&lt; i &lt;&lt; endl;
+}</code></pre>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FUNCIONES
+===================================================== -->
+
+<section
+    id="funciones"
+    class="section">
+
+    <div class="section-header">
+
+        <div class="section-number">
+        </div>
+
+        <h2>
+            Funciones
+        </h2>
+
+        <p>
+            Permiten dividir un programa en bloques reutilizables.
+        </p>
+
+    </div>
+
+
+    <h3>
+        Función simple
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>void saludar() {
+
+    cout &lt;&lt; "Hola estudiante";
+}
+
+int main() {
+
+    saludar();
+
+    return 0;
+}</code></pre>
+
+    </div>
+
+
+    <h3>
+        Función con parámetros
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>void saludar(string nombre) {
+
+    cout &lt;&lt; "Hola " &lt;&lt; nombre;
+}
+
+saludar("Carlos");</code></pre>
+
+    </div>
+
+
+    <h3>
+        Función con retorno
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>int sumar(int a, int b) {
+
+    return a + b;
+}
+
+int resultado = sumar(10, 20);
+
+cout &lt;&lt; resultado;</code></pre>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ESTRUCTURAS
+===================================================== -->
+
+<section
+    id="estructuras"
+    class="section">
+
+    <div class="section-header">
+
+        <div class="section-number">
+        </div>
+
+        <h2>
+            Arreglos, matrices, cadenas y estructuras
+        </h2>
+
+    </div>
+
+
+    <h3>
+        Arreglos
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>int numeros[5] = {
+    10, 20, 30, 40, 50
+};
+
+cout &lt;&lt; numeros[0];</code></pre>
+
+    </div>
+
+
+    <h3>
+        Recorrer arreglo
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>for (int i = 0; i &lt; 5; i++) {
+
+    cout &lt;&lt; numeros[i] &lt;&lt; endl;
+}</code></pre>
+
+    </div>
+
+
+    <h3>
+        Matrices
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>int matriz[3][3] = {
+
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+
+for (int i = 0; i &lt; 3; i++) {
+
+    for (int j = 0; j &lt; 3; j++) {
+
+        cout &lt;&lt; matriz[i][j] &lt;&lt; " ";
+    }
+
+    cout &lt;&lt; endl;
+}</code></pre>
+
+    </div>
+
+
+    <h3>
+        Cadenas
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>#include &lt;string&gt;
+
+string nombre = "Maria";
+
+cout &lt;&lt; nombre;
+
+cout &lt;&lt; nombre.length();
+
+cout &lt;&lt; nombre.empty();
+
+getline(cin, nombre);</code></pre>
+
+    </div>
+
+
+    <h3>
+        struct
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>struct Estudiante {
+
+    string nombre;
+    int edad;
+    float promedio;
+};
+
+Estudiante estudiante;
+
+estudiante.nombre = "Carlos";
+estudiante.edad = 16;
+estudiante.promedio = 85.5;
+
+cout &lt;&lt; estudiante.nombre;</code></pre>
+
+    </div>
+
+
+    <h3>
+        enum
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>enum Dia {
+
+    LUNES,
+    MARTES,
+    MIERCOLES,
+    JUEVES,
+    VIERNES
+};</code></pre>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PUNTEROS
+===================================================== -->
+
+<section
+    id="punteros"
+    class="section">
+
+    <div class="section-header">
+
+        <div class="section-number">
+        </div>
+
+        <h2>
+            Punteros y referencias
+        </h2>
+
+        <p>
+            Los punteros permiten trabajar con direcciones de memoria.
+        </p>
+
+    </div>
+
+
+    <div class="code-wrapper">
+
+<pre><code>int numero = 10;
+
+int* puntero = &amp;numero;
+
+cout &lt;&lt; "Valor: "
+     &lt;&lt; *puntero
+     &lt;&lt; endl;
+
+cout &lt;&lt; "Direccion: "
+     &lt;&lt; puntero;</code></pre>
+
+    </div>
+
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Símbolo</th>
+                    <th>Significado</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>&amp;</td>
+                    <td>Dirección de memoria.</td>
+                </tr>
+
+                <tr>
+                    <td>*</td>
+                    <td>Valor apuntado.</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <h3>
+        Referencias
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>int numero = 10;
+
+int&amp; referencia = numero;
+
+referencia = 20;
+
+cout &lt;&lt; numero;</code></pre>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     POO
+===================================================== -->
+
+<section
+    id="poo"
+    class="section">
+
+    <div class="section-header">
+
+        <div class="section-number">
+        </div>
+
+        <h2>
+            Programación Orientada a Objetos
+        </h2>
+
+        <p>
+            La POO permite modelar elementos mediante clases y objetos.
+        </p>
+
+    </div>
+
+
+    <div class="topic-grid">
+
+        <div class="topic-card">
+            <h3>Clase</h3>
+            <p>Plantilla que define atributos y métodos.</p>
+        </div>
+
+        <div class="topic-card">
+            <h3>Objeto</h3>
+            <p>Instancia de una clase.</p>
+        </div>
+
+        <div class="topic-card">
+            <h3>Encapsulamiento</h3>
+            <p>Controla el acceso a los datos.</p>
+        </div>
+
+        <div class="topic-card">
+            <h3>Herencia</h3>
+            <p>Permite reutilizar código de otras clases.</p>
+        </div>
+
+        <div class="topic-card">
+            <h3>Polimorfismo</h3>
+            <p>Permite diferentes comportamientos.</p>
+        </div>
+
+        <div class="topic-card">
+            <h3>Abstracción</h3>
+            <p>Representa solamente lo esencial.</p>
+        </div>
+
+    </div>
+
+
+    <h3>
+        Clase y objeto
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>class Estudiante {
+
+public:
+
+    string nombre;
+    int edad;
+
+    void mostrarDatos() {
+
+        cout &lt;&lt; "Nombre: "
+             &lt;&lt; nombre
+             &lt;&lt; endl;
+
+        cout &lt;&lt; "Edad: "
+             &lt;&lt; edad
+             &lt;&lt; endl;
+    }
+};
+
+int main() {
+
+    Estudiante estudiante;
+
+    estudiante.nombre = "Juan";
+
+    estudiante.edad = 17;
+
+    estudiante.mostrarDatos();
+
+    return 0;
+}</code></pre>
+
+    </div>
+
+
+    <h3>
+        Constructor
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>class Estudiante {
+
+public:
+
+    string nombre;
+    int edad;
+
+    Estudiante(string n, int e) {
+
+        nombre = n;
+        edad = e;
+    }
+};
+
+Estudiante estudiante("Carlos", 17);</code></pre>
+
+    </div>
+
+
+    <h3>
+        Encapsulamiento
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>class Cuenta {
+
+private:
+
+    double saldo = 0;
+
+public:
+
+    void depositar(double cantidad) {
+
+        saldo += cantidad;
+    }
+
+    double obtenerSaldo() {
+
+        return saldo;
+    }
+};</code></pre>
+
+    </div>
+
+
+    <h3>
+        Herencia
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>class Persona {
+
+public:
+
+    string nombre;
+
+    void saludar() {
+
+        cout &lt;&lt; "Hola";
+    }
+};
+
+class Estudiante : public Persona {
+
+public:
+
+    int curso;
+};</code></pre>
+
+    </div>
+
+
+    <h3>
+        Polimorfismo
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>class Animal {
+
+public:
+
+    virtual void sonido() {
+
+        cout &lt;&lt; "Sonido";
+    }
+};
+
+class Perro : public Animal {
+
+public:
+
+    void sonido() override {
+
+        cout &lt;&lt; "Guau";
+    }
+};</code></pre>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STL
+===================================================== -->
+
+<section
+    id="stl"
+    class="section">
+
+    <div class="section-header">
+
+        <div class="section-number">
+        </div>
+
+        <h2>
+            STL y estructuras de datos
+        </h2>
+
+        <p>
+            La biblioteca estándar de C++ proporciona contenedores
+            y algoritmos reutilizables.
+        </p>
+
+    </div>
+
+
+    <h3>
+        vector
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>#include &lt;vector&gt;
+
+vector&lt;int&gt; numeros;
+
+numeros.push_back(10);
+numeros.push_back(20);
+numeros.push_back(30);
+
+for (int numero : numeros) {
+
+    cout &lt;&lt; numero &lt;&lt; endl;
+}</code></pre>
+
+    </div>
+
+
+    <h3>
+        sort
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>#include &lt;algorithm&gt;
+
+sort(
+    numeros.begin(),
+    numeros.end()
+);</code></pre>
+
+    </div>
+
+
+    <h3>
+        map
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>#include &lt;map&gt;
+
+map&lt;string, int&gt; edades;
+
+edades["Juan"] = 17;
+edades["Maria"] = 16;
+
+cout &lt;&lt; edades["Juan"];</code></pre>
+
+    </div>
+
+
+    <h3>
+        stack
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>#include &lt;stack&gt;
+
+stack&lt;int&gt; pila;
+
+pila.push(10);
+pila.push(20);
+pila.push(30);
+
+cout &lt;&lt; pila.top();
+
+pila.pop();</code></pre>
+
+    </div>
+
+
+    <h3>
+        queue
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>#include &lt;queue&gt;
+
+queue&lt;string&gt; cola;
+
+cola.push("Ana");
+cola.push("Luis");
+cola.push("Pedro");
+
+cout &lt;&lt; cola.front();</code></pre>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ARCHIVOS
+===================================================== -->
+
+<section
+    id="archivos"
+    class="section">
+
+    <div class="section-header">
+
+        <div class="section-number">
+        </div>
+
+        <h2>
+            Archivos
+        </h2>
+
+        <p>
+            Permiten guardar información de manera permanente.
+        </p>
+
+    </div>
+
+
+    <h3>
+        Escribir
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>#include &lt;fstream&gt;
+
+ofstream archivo("datos.txt");
+
+if (archivo.is_open()) {
+
+    archivo &lt;&lt; "Hola C++";
+
+    archivo.close();
+}</code></pre>
+
+    </div>
+
+
+    <h3>
+        Leer
+    </h3>
+
+    <div class="code-wrapper">
+
+<pre><code>ifstream archivo("datos.txt");
+
+string texto;
+
+if (archivo.is_open()) {
+
+    while (getline(archivo, texto)) {
+
+        cout &lt;&lt; texto &lt;&lt; endl;
+    }
+
+    archivo.close();
+}</code></pre>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ERRORES
+===================================================== -->
+
+<section
+    id="errores"
+    class="section">
+
+    <div class="section-header">
+
+        <div class="section-number">
+        </div>
+
+        <h2>
+            Manejo de errores
+        </h2>
+
+        <p>
+            Aprender a encontrar y corregir errores es una habilidad
+            fundamental de todo programador.
+        </p>
+
+    </div>
+
+
+    <div class="topic-grid">
+
+        <div class="topic-card">
+
+            <div class="emoji">
+                ❌
+            </div>
+
+            <h3>
+                Error de sintaxis
+            </h3>
+
+            <p>
+                El código no cumple las reglas del lenguaje.
+            </p>
+
+        </div>
+
+
+        <div class="topic-card">
+
+            <div class="emoji">
+                🧠
+            </div>
+
+            <h3>
+                Error lógico
+            </h3>
+
+            <p>
+                El programa funciona pero entrega un resultado incorrecto.
+            </p>
+
+        </div>
+
+
+        <div class="topic-card">
+
+            <div class="emoji">
+                💥
+            </div>
+
+            <h3>
+                Error de ejecución
+            </h3>
+
+            <p>
+                Ocurre mientras el programa está funcionando.
+            </p>
+
+        </div>
+
+
+        <div class="topic-card">
+
+            <div class="emoji">
+                🐞
+            </div>
+
+            <h3>
+                Depuración
+            </h3>
+
+            <p>
+                Proceso de localizar y corregir errores.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <h3>
+        Excepciones
+    </h3>
+
+
+    <div class="code-wrapper">
+
+<pre><code>try {
+
+    int edad;
+
+    cin &gt;&gt; edad;
+
+    if (edad &lt; 0) {
+
+        throw "Edad invalida";
+    }
+
+}
+catch (const char* mensaje) {
+
+    cout &lt;&lt; mensaje;
+}</code></pre>
+
+    </div>
+
+
+    <div class="info success">
+
+        <strong>Buena práctica:</strong>
+
+        Lee siempre el mensaje del compilador antes de modificar
+        tu código.
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     EVALUACIÓN
+===================================================== -->
+
+<section
+    id="quiz"
+    class="section">
+
+    <div class="section-header">
+
+        <div class="section-number">
+            Evaluación
+        </div>
+
+        <h2>
+            Evaluación interactiva
+        </h2>
+
+        <p>
+            Selecciona una respuesta en cada pregunta.
+        </p>
+
+    </div>
+
+
+    <form id="quizForm">
+
+
+        <div class="question">
+
+            <h4>
+                1. ¿Cuál es la función principal de C++?
+            </h4>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q1"
+                    value="0">
+                cout
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q1"
+                    value="1">
+                main()
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q1"
+                    value="0">
+                start()
+            </label>
+
+        </div>
+
+
+        <div class="question">
+
+            <h4>
+                2. ¿Qué instrucción muestra información?
+            </h4>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q2"
+                    value="1">
+                cout
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q2"
+                    value="0">
+                cin
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q2"
+                    value="0">
+                input
+            </label>
+
+        </div>
+
+
+        <div class="question">
+
+            <h4>
+                3. ¿Qué estructura permite repetir instrucciones?
+            </h4>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q3"
+                    value="1">
+                for
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q3"
+                    value="0">
+                if
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q3"
+                    value="0">
+                switch
+            </label>
+
+        </div>
+
+
+        <div class="question">
+
+            <h4>
+                4. ¿Qué tipo almacena números enteros?
+            </h4>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q4"
+                    value="1">
+                int
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q4"
+                    value="0">
+                string
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q4"
+                    value="0">
+                char
+            </label>
+
+        </div>
+
+
+        <div class="question">
+
+            <h4>
+                5. ¿Cuál es un concepto de POO?
+            </h4>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q5"
+                    value="1">
+                Encapsulamiento
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q5"
+                    value="0">
+                Compilación
+            </label>
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="q5"
+                    value="0">
+                Terminal
+            </label>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="btn btn-primary"
+            id="evaluateButton">
+
+            📊 Calificar evaluación
+
+        </button>
+
+    </form>
+
+
+    <div
+        id="quizResult"
+        class="result">
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LABORATORIO
+===================================================== -->
+
+<div
+    class="card"
+    style="margin-top:30px">
+
+    <h2>
+        💻 Laboratorio de práctica
+    </h2>
+
+    <p>
+        Escribe tu nombre y ejecuta una pequeña demostración.
+    </p>
+
+
+    <div
+        style="
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+        margin-top:15px;
+        ">
+
+        <input
+            id="studentName"
+            type="text"
+            autocomplete="off"
+            placeholder="Escribe tu nombre..."
+            style="
+                flex:1;
+                min-width:220px;
+                padding:12px;
+                border:1px solid var(--border);
+                border-radius:10px;
+                background:var(--surface);
+                color:var(--text);
+                outline:none;
+            "
+        >
+
+        <button
+            type="button"
+            class="btn btn-primary"
+            id="runButton">
+
+            ▶ Ejecutar
+
+        </button>
+
+    </div>
+
+
+    <div class="terminal">
+
+        <div class="terminal-header">
+            C++ TERMINAL
+        </div>
+
+        <div
+            id="terminalOutput"
+            class="terminal-body">
+
+            <span class="prompt">
+                C:\CursoCpp&gt;
+            </span>
+
+            Esperando programa...
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <strong>
+        Curso de C++ — 5.º de Secundaria
+    </strong>
+
+    <br>
+
+    Sistemas Informáticos · Programación · Tecnología
+
+</footer>
+
+</main>
+
+
+<script>
+"use strict";
+
+/* =========================================================
+   DATOS DEL CURSO
+========================================================= */
+
+const sections = [
+    "inicio",
+    "cpp",
+    "entorno",
+    "basico",
+    "condicionales",
+    "ciclos",
+    "funciones",
+    "estructuras",
+    "punteros",
+    "poo",
+    "stl",
+    "archivos",
+    "errores",
+    "quiz"
+];
+
+
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const sidebar =
+    document.getElementById("sidebar");
+
+const menuButton =
+    document.getElementById("menuButton");
+
+const themeButton =
+    document.getElementById("themeButton");
+
+const searchButton =
+    document.getElementById("searchButton");
+
+const startButton =
+    document.getElementById("startButton");
+
+const quizButton =
+    document.getElementById("quizButton");
+
+const evaluateButton =
+    document.getElementById("evaluateButton");
+
+const runButton =
+    document.getElementById("runButton");
+
+const studentName =
+    document.getElementById("studentName");
+
+const terminalOutput =
+    document.getElementById("terminalOutput");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+const progressText =
+    document.getElementById("progressText");
+
+const quizResult =
+    document.getElementById("quizResult");
+
+
+/* =========================================================
+   NAVEGACIÓN
+========================================================= */
+
+function showSection(id) {
+
+    if (!sections.includes(id)) {
+        return;
+    }
+
+    document
+        .querySelectorAll(".section")
+        .forEach(section => {
+
+            section.classList.remove("active");
+
+        });
+
+
+    const target =
+        document.getElementById(id);
+
+    if (target) {
+        target.classList.add("active");
+    }
+
+
+    document
+        .querySelectorAll(".nav-item")
+        .forEach(button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.section === id
+            );
+
+        });
+
+
+    updateProgress(id);
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+
+    if (window.innerWidth <= 800) {
+
+        sidebar.classList.remove("open");
+
+    }
+}
+
+
+/* =========================================================
+   NAVEGACIÓN DEL MENÚ
+========================================================= */
+
+document
+    .querySelectorAll(".nav-item")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                showSection(
+                    button.dataset.section
+                );
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   BOTONES PRINCIPALES
+========================================================= */
+
+startButton.addEventListener(
+    "click",
+    () => showSection("cpp")
+);
+
+
+quizButton.addEventListener(
+    "click",
+    () => showSection("quiz")
+);
+
+
+/* =========================================================
+   PROGRESO
+========================================================= */
+
+function updateProgress(id) {
+
+    const index =
+        sections.indexOf(id);
+
+    if (index === -1) {
+        return;
+    }
+
+    const percentage =
+        Math.round(
+            ((index + 1) / sections.length) * 100
+        );
+
+
+    progressBar.style.width =
+        `${percentage}%`;
+
+    progressText.textContent =
+        `${percentage}%`;
+
+
+    localStorage.setItem(
+        "cppProgress",
+        String(percentage)
+    );
+}
+
+
+/* =========================================================
+   RESTAURAR PROGRESO
+========================================================= */
+
+function restoreProgress() {
+
+    const saved =
+        localStorage.getItem("cppProgress");
+
+    if (!saved) {
+        updateProgress("inicio");
+        return;
+    }
+
+    const percentage =
+        Number(saved);
+
+    if (
+        Number.isFinite(percentage) &&
+        percentage >= 0 &&
+        percentage <= 100
+    ) {
+
+        progressBar.style.width =
+            `${percentage}%`;
+
+        progressText.textContent =
+            `${percentage}%`;
+
+    }
+
+}
+
+
+/* =========================================================
+   MENÚ MÓVIL
+========================================================= */
+
+menuButton.addEventListener(
+    "click",
+    event => {
+
+        event.stopPropagation();
+
+        sidebar.classList.toggle("open");
+
+    }
+);
+
+
+/* =========================================================
+   CERRAR MENÚ
+========================================================= */
+
+document.addEventListener(
+    "click",
+    event => {
+
+        if (window.innerWidth > 800) {
+            return;
+        }
+
+        if (
+            sidebar.classList.contains("open") &&
+            !sidebar.contains(event.target) &&
+            event.target !== menuButton
+        ) {
+
+            sidebar.classList.remove("open");
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   MODO OSCURO
+========================================================= */
+
+function setTheme(theme) {
+
+    const dark =
+        theme === "dark";
+
+    document.body.classList.toggle(
+        "dark",
+        dark
+    );
+
+    themeButton.textContent =
+        dark ? "☀️" : "🌙";
+
+    localStorage.setItem(
+        "cppTheme",
+        dark ? "dark" : "light"
+    );
+}
+
+
+themeButton.addEventListener(
+    "click",
+    () => {
+
+        const isDark =
+            document.body.classList.contains("dark");
+
+        setTheme(
+            isDark
+                ? "light"
+                : "dark"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   COPIAR CÓDIGO
+========================================================= */
+
+async function copyCode(button) {
+
+    const wrapper =
+        button.closest(".code-wrapper");
+
+    if (!wrapper) {
+        return;
+    }
+
+
+    const code =
+        wrapper.querySelector("code");
+
+    if (!code) {
+        return;
+    }
+
+
+    const text =
+        code.textContent;
+
+
+    try {
+
+        await navigator.clipboard.writeText(text);
+
+        const oldText =
+            button.textContent;
+
+        button.textContent =
+            "✓ Copiado";
+
+        setTimeout(
+            () => {
+
+                button.textContent =
+                    oldText;
+
+            },
+            1500
+        );
+
+    } catch (error) {
+
+        const textArea =
+            document.createElement("textarea");
+
+        textArea.value = text;
+
+        document.body.appendChild(textArea);
+
+        textArea.select();
+
+        document.execCommand("copy");
+
+        textArea.remove();
+
+        button.textContent =
+            "✓ Copiado";
+
+        setTimeout(
+            () => {
+
+                button.textContent =
+                    "Copiar";
+
+            },
+            1500
+        );
+    }
+}
+
+
+/* =========================================================
+   ACTIVAR TODOS LOS BOTONES COPIAR
+========================================================= */
+
+document
+    .querySelectorAll(".copy-btn")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => copyCode(button)
+        );
+
+    });
+
+
+/* =========================================================
+   BUSCADOR
+========================================================= */
+
+function searchCourse() {
+
+    const query =
+        prompt(
+            "Escribe un concepto para buscar:"
+        );
+
+
+    if (!query) {
+        return;
+    }
+
+
+    const search =
+        query.trim().toLowerCase();
+
+
+    if (!search) {
+        return;
+    }
+
+
+    const found =
+        sections.find(id => {
+
+            const element =
+                document.getElementById(id);
+
+            if (!element) {
+                return false;
+            }
+
+            return element.textContent
+                .toLowerCase()
+                .includes(search);
+
+        });
+
+
+    if (found) {
+
+        showSection(found);
+
+    } else {
+
+        alert(
+            `No se encontró "${query}" en el curso.`
+        );
+
+    }
+}
+
+
+searchButton.addEventListener(
+    "click",
+    searchCourse
+);
+
+
+/* =========================================================
+   ATAJO CTRL + K
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.ctrlKey &&
+            event.key.toLowerCase() === "k"
+        ) {
+
+            event.preventDefault();
+
+            searchCourse();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   EVALUACIÓN
+========================================================= */
+
+evaluateButton.addEventListener(
+    "click",
+    evaluateQuiz
+);
+
+
+function evaluateQuiz() {
+
+    let score = 0;
+
+    const total = 5;
+
+
+    for (
+        let i = 1;
+        i <= total;
+        i++
+    ) {
+
+        const selected =
+            document.querySelector(
+                `input[name="q${i}"]:checked`
+            );
+
+
+        if (
+            selected &&
+            selected.value === "1"
+        ) {
+
+            score++;
+
+        }
+
+    }
+
+
+    const percentage =
+        Math.round(
+            (score / total) * 100
+        );
+
+
+    quizResult.style.display =
+        "block";
+
+
+    if (score === total) {
+
+        quizResult.textContent =
+            `🏆 Excelente. ${score}/${total} correctas — ${percentage}%`;
+
+        quizResult.style.color =
+            "var(--success)";
+
+        quizResult.style.background =
+            "rgba(22,163,74,.12)";
+
+    } else if (score >= 3) {
+
+        quizResult.textContent =
+            `👍 Buen trabajo. ${score}/${total} correctas — ${percentage}%`;
+
+        quizResult.style.color =
+            "var(--warning)";
+
+        quizResult.style.background =
+            "rgba(217,119,6,.12)";
+
+    } else {
+
+        quizResult.textContent =
+            `📚 Debes repasar. ${score}/${total} correctas — ${percentage}%`;
+
+        quizResult.style.color =
+            "var(--danger)";
+
+        quizResult.style.background =
+            "rgba(220,38,38,.12)";
+
+    }
+
+
+    localStorage.setItem(
+        "cppQuizScore",
+        String(percentage)
+    );
+
+}
+
+
+/* =========================================================
+   SIMULADOR DE TERMINAL
+========================================================= */
+
+runButton.addEventListener(
+    "click",
+    runProgram
+);
+
+
+studentName.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Enter") {
+
+            runProgram();
+
+        }
+
+    }
+);
+
+
+function runProgram() {
+
+    const name =
+        studentName.value.trim();
+
+
+    if (!name) {
+
+        terminalOutput.innerHTML =
+            `<span class="prompt">C:\\CursoCpp&gt;</span>
+Error: debes ingresar tu nombre.`;
+
+        studentName.focus();
+
+        return;
+    }
+
+
+    const safeName =
+        escapeHTML(name);
+
+
+    terminalOutput.innerHTML =
+        `<span class="prompt">C:\\CursoCpp&gt;</span> g++ main.cpp -o programa
+
+Compilando...
+
+Compilación exitosa.
+
+<span class="prompt">C:\\CursoCpp&gt;</span> programa
+
+Hola ${safeName}
+Bienvenido al curso de C++.
+
+Programa finalizado correctamente.
+Código de salida: 0`;
+
+}
+
+
+/* =========================================================
+   PROTECCIÓN HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    return value
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* =========================================================
+   INICIALIZACIÓN
+========================================================= */
+
+function initialize() {
+
+    const savedTheme =
+        localStorage.getItem("cppTheme");
+
+
+    if (savedTheme === "dark") {
+
+        setTheme("dark");
+
+    } else {
+
+        setTheme("light");
+
+    }
+
+
+    restoreProgress();
+
+}
+
+
+/* Ejecutar al cargar */
+
+initialize();
+
+</script>
+
+</body>
+</html>
+```
